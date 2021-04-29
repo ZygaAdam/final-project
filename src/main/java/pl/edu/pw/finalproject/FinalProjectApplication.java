@@ -24,7 +24,7 @@ public class FinalProjectApplication {
 @Bean
 CommandLineRunner runner(CourseService courseService){
 	return args ->{
-		Course course1 = new Course("dupa", "cwel");
+		Course course1 = new Course("xxx", "cxxaaaxal");
 		User user1 = new User("Adam", "Zyga");
 		User user2 = new User("Adam2", "Zyga2");
 		User user3 = new User("Adam3", "Zyga3");

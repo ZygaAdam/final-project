@@ -2,6 +2,7 @@ package pl.edu.pw.finalproject.entities;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,11 +25,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="course_id")
     )
     private List<Course> courses;
-
-    public void addCourse(Course course) {
-        this.courses.add(course);
-        course.getUsers().add(this);
-    }
 
     public User(){}
 

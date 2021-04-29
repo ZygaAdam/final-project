@@ -1,0 +1,37 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org"
+      xmlns:sec="http://www.thymleaf.org/thymleaf-extras-springsecurity3">
+
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+
+    <div th:replace="fragments/header :: header"/>
+    <br>
+    <br>
+    <div class="container">
+    <form>
+    <div
+            style="margin-top: 25px"
+            class="form-group row">
+        <label class="col-form-label col-sm-4">Select users you want to add to the course: </label>
+
+        <div class="col-sm-8 text-left">
+            <th:block th:each="user : ${users}">
+                <div>
+                    <input type="checkbox" th:field="*{users}" th:text="${user.firstName + ' ' + user.lastName}"
+
+                           th:value="${user.id}" class="m-2">
+                </div>
+            </th:block>
+        </div>
+    </div>
+    <a th:href="@{/course/courseList}" class="btn btn-warning btn-sm">Submit</a>
+    </form>
+    <a th:href="@{/course/courseList}">Back to Courses List</a>
+</div>
+
+</body>
+</html>

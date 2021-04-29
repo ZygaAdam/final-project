@@ -24,7 +24,7 @@ public class Course {
             joinColumns =@JoinColumn(name="course_id"),
             inverseJoinColumns = @JoinColumn(name="student_id")
     )
-    private List<User> users;
+    private List<User> users= new ArrayList<>();
 
     public Course(){}
 
@@ -33,7 +33,7 @@ public class Course {
         this.name = name;
         this.description = description;
     }
-
+// poniej wyjebac te metode, potrzebna tylko do testow
     public void addUser(User theUser){
         if(users == null){
             users = new ArrayList<>();

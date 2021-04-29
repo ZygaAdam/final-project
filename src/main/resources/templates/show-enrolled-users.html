@@ -1,0 +1,90 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymleaf.org"
+      xmlns:sec="http://www.thymleaf.org/thymleaf-extras-springsecurity3">
+
+<head>
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"/>
+
+<div class="container">
+    <h4>Enrolled users</h4>
+    <hr>
+    <button type="button" data-toggle="modal" th:attr="data-target='#addModal'"
+       style="margin-top: 25px"
+       class="btn btn-primary btn-sm mb-3">
+        Add user to the course
+    </button>
+
+    <table style="margin-top: 25px"
+            class="table table-boardered table-striped">
+        <thead class="thead">
+        <tr>
+            <th>User first name</th>
+            <th>User last name</th>
+            <th>Action</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${courseUsers}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td><button class="btn btn-danger btn-sm">Remove user from the course</button></td>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<div class="modal fade" th:attr="id=addModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"></button>
+                <h4 class="modal-title">Add user to course</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+
+                        <form action="#" th:action="@{/course/processAddUserToCourse}" th:object="${course}"   method="post">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label>Users:</label>
+                                    <select  class="form-control selectpicker" required="required" multiple="true" data-live-search="true">
+                                       <option th:each="user : ${allUsers}"
+                                               th:value="${user.id}"
+                                               th:text="${user.firstName}"><option/>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" th:field="*{id}"  class="form-control input-lg"/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit"/>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
