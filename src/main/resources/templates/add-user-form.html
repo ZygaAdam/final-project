@@ -3,7 +3,7 @@
 
 <head>
     <div th:replace="fragments/header :: header-css"/>
-<body>
+<body th:style="'background-image:url(' + @{/images/mountains.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 <div class="container">
     <div th:replace="fragments/header :: header"/>
     <h3>User Directory</h3>

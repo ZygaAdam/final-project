@@ -7,7 +7,7 @@
     <div th:replace="fragments/header :: header-css"/>
 
 </head>
-<body>
+<body th:style="'background-image:url(' + @{/images/mountains.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">

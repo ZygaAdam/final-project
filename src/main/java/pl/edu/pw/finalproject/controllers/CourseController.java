@@ -11,6 +11,7 @@ import pl.edu.pw.finalproject.service.CourseService;
 import pl.edu.pw.finalproject.service.UserService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -73,7 +74,6 @@ public class CourseController {
 
 
 
-
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("courseId") long theId,
                                     Model theModel) {
@@ -86,22 +86,9 @@ public class CourseController {
     }
 
 
-    @PostMapping("/processAddUserToCourse")
-    public String processForm(@ModelAttribute("course")Course theCourse)
-    {
-        List<User> courseUsers = theCourse.getUsers();
-        courseUsers.forEach(user ->theCourse.getUsers()
-                .add(user));
 
-        System.out.println(theCourse.getUsers());
-        courseRepository.save(theCourse);
-
-        return "redirect:/course/enrolledUsers/" + theCourse.getId();
-    }
 
     @GetMapping("/enrolledUsers/{courseId}")
-//    public String showEnrolledUsers(@RequestParam("courseId") long theId,
-//                                    Model theModel) {
     public String showEnrolledUsers(@PathVariable("courseId") long theId,
                                     Model theModel) {
         Course theCourse = courseService.findById(theId);
@@ -118,6 +105,42 @@ public class CourseController {
 
         return "show-enrolled-users";}
 
+
+
+    @GetMapping("/enrolledUsers/{courseId}/users/{userId}/delete")
+    public String deleteUserFromTheCourse(@PathVariable("courseId") Long courseId,
+                                          @PathVariable("userId") Long userId, Model model){
+
+        Course theCourse = courseService.findById(courseId);
+     //   User UserToDelete =  theCourse.getUsers().get(userId.intValue() - 1);
+     //   System.out.println("id to " + UserToDelete.getId() + " nazwisko to " + UserToDelete.getLastName());
+     //   theCourse.getUsers().remove(UserToDelete);
+        Optional<User> routeToDeleteOptional =  theCourse.getUsers().stream().filter(user -> user.getId().equals(userId)).findFirst();
+        if(routeToDeleteOptional.isPresent()){
+            theCourse.getUsers().remove(routeToDeleteOptional.get());
+            courseRepository.save(theCourse);
+        }
+
+
+        return "redirect:/course/enrolledUsers/" + theCourse.getId();
+    }
+
+    @PostMapping("/processAddUserToCourse")
+    public String processForm(@ModelAttribute("course")Course theCourse)
+    {
+
+        Optional<Course> course = courseRepository.findById(theCourse.getId());
+        List<Long> userIds = theCourse.getUsers().stream().map(user -> user.getId()).collect(Collectors.toList());
+        List<User> userList = userIds.stream().map(aLong -> userRepository.getOne(aLong)).collect(Collectors.toList());
+        System.out.println(course.get());
+        course.get().getUsers().addAll(userList);
+        System.out.println(course.get());
+
+        courseRepository.save(course.get());
+
+        return "redirect:/course/enrolledUsers/" + theCourse.getId();
+    }
+
     @PostMapping("/saveCourse")
     public String saveCourse(@ModelAttribute("course") Course theCourse) {
 
@@ -125,6 +148,8 @@ public class CourseController {
 
         return "redirect:/course/courseList";
     }
+
+
 
 
 }

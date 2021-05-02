@@ -24,7 +24,7 @@ public class Course {
             joinColumns =@JoinColumn(name="course_id"),
             inverseJoinColumns = @JoinColumn(name="student_id")
     )
-    private List<User> users= new ArrayList<>();
+    private List<User> users;
 
     public Course(){}
 
@@ -76,8 +76,10 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
+                ", users=" + users +
                 '}';
     }
 }
