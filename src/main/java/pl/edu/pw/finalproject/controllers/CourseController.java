@@ -4,11 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pw.finalproject.entities.Course;
-import pl.edu.pw.finalproject.entities.User;
+import pl.edu.pw.finalproject.entities.Student;
 import pl.edu.pw.finalproject.repository.CourseRepository;
-import pl.edu.pw.finalproject.repository.UserRepository;
+import pl.edu.pw.finalproject.repository.StudentRepository;
 import pl.edu.pw.finalproject.service.CourseService;
-import pl.edu.pw.finalproject.service.UserService;
+import pl.edu.pw.finalproject.service.StudentService;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,15 +20,15 @@ import java.util.stream.Collectors;
 public class CourseController {
 
     private CourseRepository courseRepository;
-    private UserRepository userRepository;
+    private StudentRepository studentRepository;
     private CourseService courseService;
-    private UserService userService;
+    private StudentService studentService;
 
     public CourseController(CourseRepository theCourseRepository,
-                          UserRepository theUserRepository, CourseService theCourseService
+                            StudentRepository theStudentRepository, CourseService theCourseService
                             ) {
         courseRepository = theCourseRepository;
-        userRepository = theUserRepository;
+        studentRepository = theStudentRepository;
         courseService = theCourseService;
 
     }
@@ -58,9 +58,9 @@ public class CourseController {
     public String showFormForAdd(Model theModel) {
 
         Course theCourse = new Course();
-        List<User> listUsers = userRepository.findAll();
+        List<Student> listStudents = studentRepository.findAll();
         theModel.addAttribute("course", theCourse);
-        theModel.addAttribute("users", listUsers);
+        theModel.addAttribute("students", listStudents);
         return "add-course-form";
     }
 
@@ -79,9 +79,9 @@ public class CourseController {
                                     Model theModel) {
 
         Course theCourse = courseService.findById(theId);
-        List<User> listUsers = userRepository.findAll();
+        List<Student> listStudents = studentRepository.findAll();
         theModel.addAttribute("course", theCourse);
-        theModel.addAttribute("users", listUsers);
+        theModel.addAttribute("students", listStudents);
         return "add-course-form";
     }
 
@@ -92,16 +92,16 @@ public class CourseController {
     public String showEnrolledUsers(@PathVariable("courseId") long theId,
                                     Model theModel) {
         Course theCourse = courseService.findById(theId);
-        List<User> courseUsers = theCourse.getUsers();
-        List<User> allUsers =
-                (userRepository.findAll())
+        List<Student> courseStudents = theCourse.getStudents();
+        List<Student> allStudents =
+                (studentRepository.findAll())
                         .stream()
-                        .filter(user ->!theCourse.getUsers().contains(user))
+                        .filter(user ->!theCourse.getStudents().contains(user))
                         .collect(Collectors.toList());
 
         theModel.addAttribute("course", theCourse);
-        theModel.addAttribute("courseUsers", courseUsers);
-        theModel.addAttribute("allUsers", allUsers);
+        theModel.addAttribute("courseUsers", courseStudents);
+        theModel.addAttribute("allUsers", allStudents);
 
         return "show-enrolled-users";}
 
@@ -112,12 +112,12 @@ public class CourseController {
                                           @PathVariable("userId") Long userId, Model model){
 
         Course theCourse = courseService.findById(courseId);
-     //   User UserToDelete =  theCourse.getUsers().get(userId.intValue() - 1);
+     //   Student UserToDelete =  theCourse.getUsers().get(userId.intValue() - 1);
      //   System.out.println("id to " + UserToDelete.getId() + " nazwisko to " + UserToDelete.getLastName());
      //   theCourse.getUsers().remove(UserToDelete);
-        Optional<User> routeToDeleteOptional =  theCourse.getUsers().stream().filter(user -> user.getId().equals(userId)).findFirst();
+        Optional<Student> routeToDeleteOptional =  theCourse.getStudents().stream().filter(user -> user.getId().equals(userId)).findFirst();
         if(routeToDeleteOptional.isPresent()){
-            theCourse.getUsers().remove(routeToDeleteOptional.get());
+            theCourse.getStudents().remove(routeToDeleteOptional.get());
             courseRepository.save(theCourse);
         }
 
@@ -130,10 +130,10 @@ public class CourseController {
     {
 
         Optional<Course> course = courseRepository.findById(theCourse.getId());
-        List<Long> userIds = theCourse.getUsers().stream().map(user -> user.getId()).collect(Collectors.toList());
-        List<User> userList = userIds.stream().map(aLong -> userRepository.getOne(aLong)).collect(Collectors.toList());
+        List<Long> userIds = theCourse.getStudents().stream().map(user -> user.getId()).collect(Collectors.toList());
+        List<Student> studentList = userIds.stream().map(aLong -> studentRepository.getOne(aLong)).collect(Collectors.toList());
         System.out.println(course.get());
-        course.get().getUsers().addAll(userList);
+        course.get().getStudents().addAll(studentList);
         System.out.println(course.get());
 
         courseRepository.save(course.get());

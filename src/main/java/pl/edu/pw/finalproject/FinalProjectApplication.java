@@ -6,9 +6,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import pl.edu.pw.finalproject.entities.Course;
-import pl.edu.pw.finalproject.entities.User;
-import pl.edu.pw.finalproject.repository.CourseRepository;
-import pl.edu.pw.finalproject.repository.UserRepository;
 import pl.edu.pw.finalproject.service.CourseService;
 
 @SpringBootApplication
@@ -24,15 +21,16 @@ public class FinalProjectApplication {
 @Bean
 CommandLineRunner runner(CourseService courseService){
 	return args ->{
-		Course course1 = new Course("xxx", "cxxaaaxal");
-		User user1 = new User("Adam", "Zyga");
-		User user2 = new User("Adam2", "Zyga2");
-		User user3 = new User("Adam3", "Zyga3");
-		course1.addUser(user1);
-		course1.addUser(user2);
-		course1.addUser(user3);
 
-		courseService.save(course1);
+//		Course course1 = new Course("xxx", "cxxaaaxal", new Date(2020,11, 11, 11, 12));
+//		Student user1 = new Student("Adam", "Zyga", "xxx@o2.pl");
+//		Student user2 = new Student("Adam2", "Zyga2", "xxx2@o2.pl");
+//		Student user3 = new Student("Adam3", "Zyga3", "xxx3@o2.pl");
+//		course1.addUser(user1);
+//		course1.addUser(user2);
+//		course1.addUser(user3);
+//
+//		courseService.save(course1);
 
 
 	};

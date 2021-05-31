@@ -7,11 +7,11 @@
     <div th:replace="fragments/header :: header-css"/>
 
 </head>
-<body th:style="'background-image:url(' + @{/images/mountains.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+<body th:style="'background-image:url(' + @{/images/Books2.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <a th:href="@{/course/showFormForAdd}"
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/course/showFormForAdd}"
        style="margin-top: 25px"
        class="btn btn-primary btn-sm mb-3">
         Add new Course
@@ -21,8 +21,9 @@
         <tr>
             <th>Course</th>
             <th>Descritpion</th>
-            <th>Number of enrolled users</th>
-            <th>Action</th>
+            <th>Start date</th>
+            <th>Number of enrolled students</th>
+            <th sec:authorize="hasRole('ADMIN')">Action</th>
 
         </tr>
         </thead>
@@ -30,10 +31,9 @@
         <tr th:each="tempCourse : ${courses}">
             <td th:text="${tempCourse.name}"/>
             <td th:text="${tempCourse.description}"/>
-            <td th:text="${#lists.size(tempCourse.users)}"/>
-            <td>
-
-
+            <td th:text="${#dates.format(tempCourse.date, 'dd/MM/yyyy h:mm aa')}"/>
+            <td th:text="${#lists.size(tempCourse.students)}"/>
+            <td sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/course/deleteCourse(courseId=${tempCourse.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="if (!(confirm('Are you sure you want to delete?'))) return false">Delete the course</a>
@@ -45,18 +45,12 @@
 
 
 
-                <a th:href="@{'/course/enrolledUsers/' + ${tempCourse.id}}" class="btn btn-primary btn-sm">Show enrolled users</a>
+                <a  th:href="@{'/course/enrolledUsers/' + ${tempCourse.id}}" class="btn btn-primary btn-sm">Show enrolled students</a>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-
-
-
-
-
 </div>
-
 </body>
 </html>

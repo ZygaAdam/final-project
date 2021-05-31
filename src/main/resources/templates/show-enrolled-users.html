@@ -5,12 +5,13 @@
 
 <head>
     <div th:replace="fragments/header :: header-css"/>
+
 </head>
-<body th:style="'background-image:url(' + @{/images/mountains.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+<body th:style="'background-image:url(' + @{/images/Books2.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <h4>Enrolled users</h4>
+    <h4>Enrolled students</h4>
     <hr>
     <button type="button" data-toggle="modal" th:attr="data-target='#addModal'"
        style="margin-top: 25px"
@@ -48,7 +49,7 @@
                                 <h4 class="modal-title">User removal</h4>
                             </div>
                             <div class="modal-body">
-                                <p th:text="${user.firstName + ' ' + user.id}"></p>
+                                <p th:text="${user.firstName + ' ' + user.lastName}"></p>
                                 <ul>
                                     <li>User will be removed from the course </li>
                                 </ul>
@@ -89,10 +90,10 @@
                             <fieldset>
                                 <div class="form-group">
                                     <label>Users:</label>
-                                    <select th:field="*{users}"  class="form-control selectpicker" required="required" multiple="true" data-live-search="true">
+                                    <select th:field="*{students}"  class="form-control selectpicker" required="required" multiple="true" data-live-search="true">
                                        <option th:each="user : ${allUsers}"
                                                th:value="${user.id}"
-                                               th:text="${user.firstName}"/>
+                                               th:text="${user.firstName + ' ' + user.lastName}"/>
                                     </select>
                                 </div>
                                 <div class="form-group">

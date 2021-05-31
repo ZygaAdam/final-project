@@ -6,11 +6,11 @@
 <head>
     <div th:replace="fragments/header :: header-css"/>
 </head>
-<body th:style="'background-image:url(' + @{/images/mountains.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+<body th:style="'background-image:url(' + @{/images/Books2.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 <div th:replace="fragments/header :: header"/>
 
 <div class="container">
-    <a th:href="@{/showFormForUserAdd}"
+    <a sec:authorize="hasRole('ADMIN')"  th:href="@{/showFormForUserAdd}"
        style="margin-top: 25px"
        class="btn btn-primary btn-sm mb-3">
         Add new User
@@ -20,7 +20,8 @@
         <tr>
             <th>First name</th>
             <th>Last name</th>
-            <th>Action</th>
+            <th>Email</th>
+            <th sec:authorize="hasRole('ADMIN')" >Action</th>
 
         </tr>
         </thead>
@@ -28,8 +29,8 @@
         <tr th:each="tempUser : ${users}">
             <td th:text="${tempUser.firstName}"/>
             <td th:text="${tempUser.lastName}"/>
-
-            <td>
+            <td th:text="${tempUser.email}"/>
+            <td sec:authorize="hasRole('ADMIN')" >
 
                 <a th:href="@{/deleteUser(userId=${tempUser.id})}"
                    class="btn btn-danger btn-sm"

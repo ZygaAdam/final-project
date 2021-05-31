@@ -1,10 +1,15 @@
 package pl.edu.pw.finalproject.service;
 
+
+import org.springframework.security.core.userdetails.UserDetailsService;
+import pl.edu.pw.finalproject.dto.UserRegistrationDto;
 import pl.edu.pw.finalproject.entities.User;
 
-public interface UserService {
+import java.util.List;
 
-    public void save(User theUser);
+public interface UserService extends UserDetailsService {
+    User save(UserRegistrationDto registrationDto);
 
-    public void deleteById(long theId);
+    public List<User> findAll();
+
 }

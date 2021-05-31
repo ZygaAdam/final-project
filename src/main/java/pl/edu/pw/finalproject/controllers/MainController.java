@@ -3,27 +3,20 @@ package pl.edu.pw.finalproject.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import pl.edu.pw.finalproject.entities.Course;
-import pl.edu.pw.finalproject.entities.User;
 import pl.edu.pw.finalproject.repository.CourseRepository;
-import pl.edu.pw.finalproject.repository.UserRepository;
-
-import java.util.List;
+import pl.edu.pw.finalproject.repository.StudentRepository;
 
 
 @Controller
 public class MainController {
 
     private CourseRepository courseRepository;
-    private UserRepository userRepository;
+    private StudentRepository studentRepository;
 
     public MainController(CourseRepository theCourseRepository,
-                          UserRepository theUserRepository) {
+                          StudentRepository theStudentRepository) {
         courseRepository = theCourseRepository;
-        userRepository = theUserRepository;
+        studentRepository = theStudentRepository;
     }
 
     @GetMapping("/")
@@ -31,6 +24,16 @@ public class MainController {
 
 
         return "index";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+    @GetMapping("/profile")
+    public String profile() {
+        return "profile";
     }
 
 

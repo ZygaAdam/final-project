@@ -6,7 +6,7 @@
 <head>
     <div th:replace="fragments/header :: header-css"/>
 </head>
-<body th:style="'background-image:url(' + @{/images/mountains.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+<body th:style="'background-image:url(' + @{/images/Books2.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 
     <div th:replace="fragments/header :: header"/>
     <br>
@@ -16,12 +16,12 @@
     <div
             style="margin-top: 25px"
             class="form-group row">
-        <label class="col-form-label col-sm-4">Select users you want to add to the course: </label>
+        <label class="col-form-label col-sm-4">Select students you want to add to the course: </label>
 
         <div class="col-sm-8 text-left">
-            <th:block th:each="user : ${users}">
+            <th:block th:each="user : ${students}">
                 <div>
-                    <input type="checkbox" th:field="*{users}" th:text="${user.firstName + ' ' + user.lastName}"
+                    <input type="checkbox" th:field="*{students}" th:text="${user.firstName + ' ' + user.lastName}"
 
                            th:value="${user.id}" class="m-2">
                 </div>

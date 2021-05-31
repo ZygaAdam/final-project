@@ -47,7 +47,7 @@
 
 
 
-    <title>JAVA EE - FINAL APP</title>
+    <title>COURSE MANAGEMENT APP</title>
     </div>
 </head>
 <body>
@@ -55,7 +55,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
         <div class="container">
-            <a href="#" class="navbar-brand" th:href="@{/}">JAVA EE - FINAL APP</a>
+            <a href="#" class="navbar-brand" th:href="@{/}">COURSE MANAGEMENT APP</a>
             <div class="navbar-header">
                 <button type="button" class="navbar-toggler"
                         data-toggle="collapse"
@@ -67,13 +67,19 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav ml-auto">
                         <li>
-                            <a href="#" th:href="@{/}" class="nav-link">Home</a>
+                            <a sec:authorize="isAuthenticated()" href="#" th:href="@{/}" class="nav-link">Home</a>
                         </li>
                         <li>
-                            <a href="#" th:href="@{/course/courseList}" class="nav-link">Courses</a>
+                            <a sec:authorize="isAuthenticated()" href="#" th:href="@{/course/courseList}" class="nav-link">Courses</a>
                         </li>
                         <li>
-                            <a href="#" th:href="@{/userList}" class="nav-link">Users</a>
+                            <a sec:authorize="isAuthenticated()" href="#" th:href="@{/userList}" class="nav-link">Users</a>
+                        </li>
+                        <li>
+                            <a sec:authorize="isAuthenticated()" href="#" th:href="@{/profile}" class="nav-link">Profile</a>
+                        </li>
+                        <li>
+                        <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-link">Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -7,37 +7,37 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import pl.edu.pw.finalproject.entities.User;
+import pl.edu.pw.finalproject.entities.Student;
 import pl.edu.pw.finalproject.repository.CourseRepository;
-import pl.edu.pw.finalproject.repository.UserRepository;
+import pl.edu.pw.finalproject.repository.StudentRepository;
 
 import java.util.List;
 
 @Controller
-public class UserController {
+public class StudentController {
 
     private CourseRepository courseRepository;
-    private UserRepository userRepository;
+    private StudentRepository studentRepository;
 
-    public UserController(CourseRepository theCourseRepository,
-                          UserRepository theUserRepository) {
+    public StudentController(CourseRepository theCourseRepository,
+                             StudentRepository theStudentRepository) {
         courseRepository = theCourseRepository;
-        userRepository = theUserRepository;
+        studentRepository = theStudentRepository;
     }
 
     @GetMapping("/userList")
     public String showUsersList(Model theModel) {
 
-        List<User> theUsers = userRepository.findAll();
-        theModel.addAttribute("users", theUsers);
+        List<Student> theStudents = studentRepository.findAll();
+        theModel.addAttribute("users", theStudents);
 
         return "user-list";
     }
 
     @PostMapping("/saveUser")
-    public String saveUser(@ModelAttribute("user") User theUser) {
+    public String saveUser(@ModelAttribute("user") Student theStudent) {
 
-        userRepository.save(theUser);
+        studentRepository.save(theStudent);
 
         return "redirect:/userList";
     }
@@ -45,7 +45,7 @@ public class UserController {
     @GetMapping("/deleteUser")
     public String deleteUser(@RequestParam("userId") long theId) {
 
-        userRepository.deleteById(theId);
+        studentRepository.deleteById(theId);
 
         return "redirect:/userList";
     }
@@ -53,9 +53,9 @@ public class UserController {
     @GetMapping("/showFormForUserAdd")
     public String showFormForUserAdd(Model theModel) {
 
-        User theUser = new User();
+        Student theStudent = new Student();
 
-        theModel.addAttribute("user", theUser);
+        theModel.addAttribute("user", theStudent);
 
         return "add-user-form";
     }

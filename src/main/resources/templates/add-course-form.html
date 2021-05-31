@@ -5,7 +5,7 @@
     <div th:replace="fragments/header :: header-css"/>
 
 
-<body th:style="'background-image:url(' + @{/images/mountains.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
+<body th:style="'background-image:url(' + @{/images/Books2.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
 <div th:replace="fragments/header :: header"/>
 <div class="container">
     <h3>Course Directory</h3>
@@ -22,13 +22,21 @@
 
         <textarea  maxlength="50"  rows="3" type="text" th:field="*{description}"
                class="form-control mb-4 col-4" placeholder="Description"/>
-        <label class="col-form-label col-sm-4">Select users you want to add to the course: </label>
+
+        <div class='input-group date col-xs-4' id='datetimepicker1'>
+            <input th:field="*{date}" id="dateInput" type='text' class="form-control" placeholder="Start date" required />
+            <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+        </div>
+
+
+        <label class="col-form-label col-sm-4">Select students you want to add to the course: </label>
         <br>
         <br>
-        <br>
-        <th:block th:each="user : ${users}">
+        <th:block th:each="user : ${students}">
             <div>
-                <input type="checkbox" th:field="*{users}" th:text="${user.firstName + ' ' + user.lastName}"
+                <input type="checkbox" th:field="*{students}" th:text="${user.firstName + ' ' + user.lastName}"
 
                        th:value="${user.id}" class="m-2">
             </div>
@@ -40,9 +48,18 @@
 
     </form>
     <hr>
-    <a th:href="@{/course/courseList}">Back to Courses List</a>
+    <a style="color: black" th:href="@{/course/courseList}">Back to Courses List</a>
 
 </div>
+
+
+<script th:inline="javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>
+
+
 
 </body>
 </html>

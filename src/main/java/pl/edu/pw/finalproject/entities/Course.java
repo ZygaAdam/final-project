@@ -1,7 +1,10 @@
 package pl.edu.pw.finalproject.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -16,6 +19,9 @@ public class Course {
 
     private String description;
 
+  //  @DateTimeFormat(pattern = "dd/MM/yyyy h:mm")
+    private Date date;
+
     @ManyToMany(fetch=FetchType.LAZY,
                 cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE,
                         CascadeType.REFRESH} )
@@ -24,21 +30,22 @@ public class Course {
             joinColumns =@JoinColumn(name="course_id"),
             inverseJoinColumns = @JoinColumn(name="student_id")
     )
-    private List<User> users;
+    private List<Student> students;
 
     public Course(){}
 
-    public Course( String name, String description) {
+    public Course( String name, String description, Date date) {
 
         this.name = name;
         this.description = description;
+        this.date = date;
     }
 // poniej wyjebac te metode, potrzebna tylko do testow
-    public void addUser(User theUser){
-        if(users == null){
-            users = new ArrayList<>();
+    public void addUser(Student theStudent){
+        if(students == null){
+            students = new ArrayList<>();
         }
-        users.add(theUser);
+        students.add(theStudent);
     }
 
     public Long getId() {
@@ -65,12 +72,20 @@ public class Course {
         this.description = description;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setUsers(List<User> users) {
-        this.users = users;
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -79,7 +94,7 @@ public class Course {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", users=" + users +
+                ", students=" + students +
                 '}';
     }
 }
