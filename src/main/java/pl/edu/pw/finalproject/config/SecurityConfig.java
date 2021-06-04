@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import pl.edu.pw.finalproject.service.UserService;
 
 
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	                "/registration**",
 	                "/js/**",
 	                "/css/**",
-	                "/img/**",
+	                "/imgages/**",
 	                "/webjars/**").permitAll()
 			.antMatchers("/h2-console/**").permitAll()
 			.antMatchers("/admin/**").hasAnyRole("ADMIN")
@@ -53,6 +54,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable();
 
 	}
+
+
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler(
+				"/webjars/**",
+				"/img/**",
+				"/css/**",
+				"/js/**")
+				.addResourceLocations(
+
+						"classpath:/static/imgages/",
+						"classpath:/static/css/",
+						"classpath:/static/fonts/",
+						"classpath:/static/js/");}
 
 	@Bean
     public BCryptPasswordEncoder passwordEncoder() {
