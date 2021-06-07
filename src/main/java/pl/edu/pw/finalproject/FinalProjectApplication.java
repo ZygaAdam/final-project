@@ -17,22 +17,4 @@ public class FinalProjectApplication {
 	}
 
 
-
-@Bean
-CommandLineRunner runner(CourseService courseService){
-	return args ->{
-
-//		Course course1 = new Course("xxx", "cxxaaaxal", new Date(2020,11, 11, 11, 12));
-//		Student user1 = new Student("Adam", "Zyga", "xxx@o2.pl");
-//		Student user2 = new Student("Adam2", "Zyga2", "xxx2@o2.pl");
-//		Student user3 = new Student("Adam3", "Zyga3", "xxx3@o2.pl");
-//		course1.addUser(user1);
-//		course1.addUser(user2);
-//		course1.addUser(user3);
-//
-//		courseService.save(course1);
-
-
-	};
-}
 }

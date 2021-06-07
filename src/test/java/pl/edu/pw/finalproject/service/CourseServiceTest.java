@@ -8,6 +8,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import pl.edu.pw.finalproject.entities.Course;
 import pl.edu.pw.finalproject.repository.CourseRepository;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -33,14 +36,11 @@ public class CourseServiceTest {
     void testFindById() {
 
         Course course = new Course("Cobol course","course about cobol programming language",new Date(2020,11, 11, 11, 12));
-        doReturn(Optional.of(course)).when(courseRepository).findById(1l);
+        course.setId(2L);
+        when(courseRepository.findById(2L)).thenReturn(Optional.of(course));
 
-        // Execute the service call
-        Optional<Course> returnedCourse = Optional.ofNullable(courseService.findById(1l));
+        assertEquals(2l, course.getId().longValue());
 
-        // Assert the response
-        Assertions.assertTrue(returnedCourse.isPresent(), "Course was not found");
-        Assertions.assertSame(returnedCourse.get(), course, "The course returned was not the same as the mock");
     }
 
 
@@ -78,7 +78,6 @@ public class CourseServiceTest {
 
         Assertions.assertNotNull(returnedCourse, "The saved course should not be null");
 
-
     }
 
     @Test
@@ -96,9 +95,15 @@ public class CourseServiceTest {
     @DisplayName("Test delete by id deletes the object")
     void testDeleteById(){
         Course course = new Course("Cobol course","course about cobol programming language",new Date(2020,11, 11, 11, 12));
+        course.setId(2L);
+        when(courseRepository.findById(course.getId())).thenReturn(Optional.of(course));
+        courseService.deleteById(course.getId());
+        verify(courseRepository).deleteById(course.getId());
 
-        System.out.println(doReturn(Optional.of(course)).when(courseRepository).findById(1l));
+
     }
+
+
     }
 
 
