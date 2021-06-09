@@ -63,7 +63,8 @@ public class MainController {
     }
 
 
-
-
-
+    @GetMapping("/authors")
+    public String authors(){
+        return "authors";
+    }
 }
