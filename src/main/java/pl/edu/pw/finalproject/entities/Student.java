@@ -2,6 +2,7 @@ package pl.edu.pw.finalproject.entities;
 /**
  * Represents the student.
  * A student can be enrolled in many courses.
+ * @author Adam Zyga
  */
 
 

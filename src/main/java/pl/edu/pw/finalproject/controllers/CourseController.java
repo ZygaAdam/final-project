@@ -15,6 +15,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 
+/**
+ * The type Course controller.
+ * @author Matylda Wawrzak-Rajtar
+ */
 @Controller
 @RequestMapping("/course")
 public class CourseController {
@@ -24,15 +28,28 @@ public class CourseController {
     private CourseService courseService;
     private StudentService studentService;
 
+    /**
+     * Instantiates a new Course controller.
+     *
+     * @param theCourseRepository  the the course repository
+     * @param theStudentRepository the the student repository
+     * @param theCourseService     the the course service
+     */
     public CourseController(CourseRepository theCourseRepository,
                             StudentRepository theStudentRepository, CourseService theCourseService
-                            ) {
+    ) {
         courseRepository = theCourseRepository;
         studentRepository = theStudentRepository;
         courseService = theCourseService;
 
     }
 
+    /**
+     * Show course list string.
+     *
+     * @param theModel the the model
+     * @return the string
+     */
     @GetMapping("/courseList")
     public String showCourseList(Model theModel) {
 
@@ -45,6 +62,12 @@ public class CourseController {
     }
 
 
+    /**
+     * Delete course string.
+     *
+     * @param theId the the id
+     * @return the string
+     */
     @GetMapping("/deleteCourse")
     public String deleteCourse(@RequestParam("courseId") long theId) {
 
@@ -54,6 +77,12 @@ public class CourseController {
     }
 
 
+    /**
+     * Show form for add string.
+     *
+     * @param theModel the the model
+     * @return the string
+     */
     @GetMapping("/showFormForAdd")
     public String showFormForAdd(Model theModel) {
 
@@ -64,6 +93,12 @@ public class CourseController {
         return "add-course-form";
     }
 
+    /**
+     * Save user to course string.
+     *
+     * @param theCourse the the course
+     * @return the string
+     */
     @PostMapping("/saveUserToCourse")
     public String saveUserToCourse(@ModelAttribute("course") Course theCourse) {
 
@@ -73,7 +108,13 @@ public class CourseController {
     }
 
 
-
+    /**
+     * Show form for update string.
+     *
+     * @param theId    the the id
+     * @param theModel the the model
+     * @return the string
+     */
     @GetMapping("/showFormForUpdate")
     public String showFormForUpdate(@RequestParam("courseId") long theId,
                                     Model theModel) {
@@ -86,8 +127,13 @@ public class CourseController {
     }
 
 
-
-
+    /**
+     * Show enrolled users string.
+     *
+     * @param theId    the the id
+     * @param theModel the the model
+     * @return the string
+     */
     @GetMapping("/enrolledUsers/{courseId}")
     public String showEnrolledUsers(@PathVariable("courseId") long theId,
                                     Model theModel) {
@@ -106,15 +152,22 @@ public class CourseController {
         return "show-enrolled-users";}
 
 
-
+    /**
+     * Delete user from the course string.
+     *
+     * @param courseId the course id
+     * @param userId   the user id
+     * @param model    the model
+     * @return the string
+     */
     @GetMapping("/enrolledUsers/{courseId}/users/{userId}/delete")
     public String deleteUserFromTheCourse(@PathVariable("courseId") Long courseId,
                                           @PathVariable("userId") Long userId, Model model){
 
         Course theCourse = courseService.findById(courseId);
-     //   Student UserToDelete =  theCourse.getUsers().get(userId.intValue() - 1);
-     //   System.out.println("id to " + UserToDelete.getId() + " nazwisko to " + UserToDelete.getLastName());
-     //   theCourse.getUsers().remove(UserToDelete);
+        //   Student UserToDelete =  theCourse.getUsers().get(userId.intValue() - 1);
+        //   System.out.println("id to " + UserToDelete.getId() + " nazwisko to " + UserToDelete.getLastName());
+        //   theCourse.getUsers().remove(UserToDelete);
         Optional<Student> routeToDeleteOptional =  theCourse.getStudents().stream().filter(user -> user.getId().equals(userId)).findFirst();
         if(routeToDeleteOptional.isPresent()){
             theCourse.getStudents().remove(routeToDeleteOptional.get());
@@ -125,6 +178,12 @@ public class CourseController {
         return "redirect:/course/enrolledUsers/" + theCourse.getId();
     }
 
+    /**
+     * Process form string.
+     *
+     * @param theCourse the the course
+     * @return the string
+     */
     @PostMapping("/processAddUserToCourse")
     public String processForm(@ModelAttribute("course")Course theCourse)
     {
@@ -141,6 +200,12 @@ public class CourseController {
         return "redirect:/course/enrolledUsers/" + theCourse.getId();
     }
 
+    /**
+     * Save course string.
+     *
+     * @param theCourse the the course
+     * @return the string
+     */
     @PostMapping("/saveCourse")
     public String saveCourse(@ModelAttribute("course") Course theCourse) {
 

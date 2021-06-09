@@ -14,41 +14,52 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import pl.edu.pw.finalproject.service.UserService;
 
 
+
+/**
+ * The type Security config.
+ *  @author Adam Zyga
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+
 	@Autowired
-    private UserService userService;
+	private UserService userService;
 
 
-
+	/**
+	 * Configure.
+	 *
+	 * @param http the http
+	 * @throws Exception the exception
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http
-			.authorizeRequests()
-			.antMatchers(
-	                "/registration**",
-	                "/js/**",
-	                "/css/**",
-	                "/imgages/**",
-	                "/webjars/**").permitAll()
-			.antMatchers("/h2-console/**").permitAll()
-			.antMatchers("/admin/**").hasAnyRole("ADMIN")
-
-			.anyRequest().authenticated()
-			.and()
-			.formLogin()
+				.authorizeRequests()
+				.antMatchers(
+						"/registration**",
+						"/js/**",
+						"/css/**",
+						"/imgages/**",
+						"/webjars/**").permitAll()
+				.antMatchers("/h2-console/**").permitAll()
+				.antMatchers("/course/enrolledUsers/**").hasAnyRole("ADMIN")
+				.antMatchers("/course/showFormForUpdate").hasAnyRole("ADMIN")
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
 				.loginPage("/login")
 				.permitAll()
 				.and()
-	            .logout()
-	            .invalidateHttpSession(true)
-	            .clearAuthentication(true)
-	            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-	            .logoutSuccessUrl("/login?logout")
-	            .permitAll();
+				.logout()
+				.invalidateHttpSession(true)
+				.clearAuthentication(true)
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login?logout")
+				.permitAll();
 
 		http.csrf().disable();
 		http.headers().frameOptions().disable();
@@ -56,6 +67,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 
+	/**
+	 * Add resource handlers.
+	 *
+	 * @param registry the registry
+	 */
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(
 				"/webjars/**",
@@ -69,25 +85,43 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"classpath:/static/fonts/",
 						"classpath:/static/js/");}
 
+	/**
+	 * Password encoder b crypt password encoder.
+	 *
+	 * @return the b crypt password encoder
+	 */
 	@Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService);
-        auth.setPasswordEncoder(passwordEncoder());
-        return auth;
-    }
+	/**
+	 * Authentication provider dao authentication provider.
+	 *
+	 * @return the dao authentication provider
+	 */
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+		auth.setUserDetailsService(userService);
+		auth.setPasswordEncoder(passwordEncoder());
+		return auth;
+	}
+
+	/**
+	 * Configure.
+	 *
+	 * @param auth the auth
+	 * @throws Exception the exception
+	 */
 //
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authenticationProvider());
+	}
 
 
 
-	
+
 }
+

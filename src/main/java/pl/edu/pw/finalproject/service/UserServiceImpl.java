@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.edu.pw.finalproject.dto.UserRegistrationDto;
 import pl.edu.pw.finalproject.entities.Role;
-import pl.edu.pw.finalproject.entities.Role;
 import pl.edu.pw.finalproject.entities.User;
 import pl.edu.pw.finalproject.entities.UserDetailsImpl;
 import pl.edu.pw.finalproject.repository.UserRepository;
@@ -21,6 +20,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The type User service.
+ * @author Matylda Wawrzak-Rajtar
+ */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -32,12 +35,22 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    /**
+     * Instantiates a new User service.
+     *
+     * @param userRepository the user repository
+     */
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
 
-
+    /**
+     * Save user.
+     *
+     * @param registrationDto the registration dto
+     * @return the user
+     */
     @Override
     public User save(UserRegistrationDto registrationDto) {
         User user = new User(registrationDto.getFirstName(),
@@ -48,7 +61,13 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
+    /**
+     * Load user by username user details.
+     *
+     * @param username the username
+     * @return the user details
+     * @throws UsernameNotFoundException the username not found exception
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -75,6 +94,11 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    /**
+     * Find all list.
+     *
+     * @return the list
+     */
     @Override
     public List<User> findAll() {
         // TODO Auto-generated method stub

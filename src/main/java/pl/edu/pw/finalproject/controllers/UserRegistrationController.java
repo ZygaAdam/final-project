@@ -11,27 +11,53 @@ import pl.edu.pw.finalproject.dto.UserRegistrationDto;
 import pl.edu.pw.finalproject.service.UserService;
 
 
+/**
+ * The type User registration controller.
+ * @author Matylda Wawrzak-Rajtar
+ */
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
 	private UserService userService;
 
+	/**
+	 * Instantiates a new User registration controller.
+	 *
+	 * @param userService the user service
+	 */
 	public UserRegistrationController(UserService userService) {
 		this.userService = userService;
 	}
 
+	/**
+	 * User registration dto user registration dto.
+	 *
+	 * @return the user registration dto
+	 */
 	@ModelAttribute("user")
-    public UserRegistrationDto userRegistrationDto() {
-        return new UserRegistrationDto();
-    }
-    
-    @GetMapping
-    public String showRegistrationForm() {
-       
-    	return "registration";
-    }
+	public UserRegistrationDto userRegistrationDto() {
+		return new UserRegistrationDto();
+	}
 
+	/**
+	 * Show registration form string.
+	 *
+	 * @return the string
+	 */
+	@GetMapping
+	public String showRegistrationForm() {
+
+		return "registration";
+	}
+
+	/**
+	 * Register user account string.
+	 *
+	 * @param userDto the user dto
+	 * @param result  the result
+	 * @return the string
+	 */
 	@PostMapping
 	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto userDto, BindingResult result) {
 
