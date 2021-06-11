@@ -11,11 +11,37 @@
 
 
     <div class="container">
-        <h3>Welcome to course management app</h3>
+        <h2 class="text-center" style="font-weight: bold;">Welcome to course management app<h2/>
     <div style="margin: 25px">
-    <a style="color: black; font-weight: bold"   th:href="@{/course/courseList}">Show courses list</a>
-    <br>
-    <a style="color: black; font-weight: bold" th:href="@{/userList}">Show students list</a>
+
+        <div class="row 6">
+            <div class="col md-6"  >
+                <a
+                        th:href="@{/userList}"
+                >
+                    <img
+                            th:src="@{/images/people.jpg}"
+                            class="img-fluid"
+                    />
+                </a>
+                <a style="color: black; font-weight: bold; font-size: 16px" th:href="@{/userList}">
+                 Show students list
+                </a>
+            </div>
+
+            <div class="col md-6" >
+                <a th:href="@{/course/courseList}">
+                    <img
+                            th:src="@{/images/courses.jpg}"
+                            class="img-fluid"
+                    />
+                </a>
+                <a style="color: black; font-weight: bold; font-size: 16px"   th:href="@{/course/courseList}">Show courses list</a>
+
+            </div>
+
+
+
     </div>
 </div>
 </body>
