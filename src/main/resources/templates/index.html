@@ -4,45 +4,29 @@
       xmlns:sec="http://www.thymleaf.org/thymleaf-extras-springsecurity3">
 
 <head>
-    <div th:replace="fragments/header :: header-css"/>
+    <div th:replace="fragments/header :: header-css"></div>
 </head>
-<body th:style="'background-image:url(' + @{../images/Books2.jpg} + '); background-repeat: no-repeat, repeat; background-size: cover;'">
-    <div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: header"></div>
 
 
-    <div class="container">
-        <h2 class="text-center" style="font-weight: bold;">Welcome to course management app<h2/>
+<div class="container">
+    <h2 class="text-center" style="font-weight: bold;"> Welcome to course management app</h2>
     <div style="margin: 25px">
 
         <div class="row 6">
             <div class="col md-6"  >
-                <a
-                        th:href="@{/userList}"
-                >
-                    <img
-                            th:src="@{/images/people.jpg}"
-                            class="img-fluid"
-                    />
-                </a>
-                <a style="color: black; font-weight: bold; font-size: 16px" th:href="@{/userList}">
-                 Show students list
-                </a>
+                <a th:href="@{/userList}"><img th:src="@{/images/people.jpg}" class="img-fluid"/></a>
+                <a style="color: black; font-weight: bold; font-size: 16px" th:href="@{/userList}">Show students list</a>
             </div>
 
             <div class="col md-6" >
-                <a th:href="@{/course/courseList}">
-                    <img
-                            th:src="@{/images/courses.jpg}"
-                            class="img-fluid"
-                    />
-                </a>
+                <a th:href="@{/course/courseList}"><img th:src="@{/images/courses.jpg}" class="img-fluid"/></a>
                 <a style="color: black; font-weight: bold; font-size: 16px"   th:href="@{/course/courseList}">Show courses list</a>
 
             </div>
 
-
-
-    </div>
-</div>
+        </div>
+    </div></div>
 </body>
 </html>

@@ -19,29 +19,30 @@
     <table class="table table-boardered table-striped">
         <thead class="thead">
         <tr>
-            <th>Course</th>
-            <th>Descritpion</th>
-            <th>Start date</th>
-            <th>Number of enrolled students</th>
-            <th sec:authorize="hasRole('ADMIN')">Action</th>
+            <th  style="width: 150px;  display: inline-block;">Course</th>
+            <th  style="width: 210px;  display: inline-block;">Descritpion</th>
+            <th style="width: 152px;  display: inline-block;">Start date</th>
+            <th style="width: 148px;  display: inline-block;">Number of enrolled students</th>
+            <th  style="width: 450px;  display: inline-block;" sec:authorize="hasRole('ADMIN')">Action</th>
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="tempCourse : ${courses}">
-            <td th:text="${tempCourse.name}"/>
-            <td th:text="${tempCourse.description}"/>
-            <td th:text="${#dates.format(tempCourse.date, 'dd/MM/yyyy h:mm aa')}"/>
-            <td th:text="${#lists.size(tempCourse.students)}"/>
-            <td sec:authorize="hasRole('ADMIN')">
+            <td style="width: 150px; word-wrap: break-word; display: inline-block;"
+                th:text="${tempCourse.name}"/>
+            <td style="width: 210px; word-wrap: break-word; display: inline-block;" th:text="${tempCourse.description}"/>
+            <td style="width: 152px; word-wrap: break-word; display: inline-block;" th:text="${#dates.format(tempCourse.date, 'dd/MM/yyyy h:mm aa')}"/>
+            <td style="width: 148px; display: inline-block;" th:text="${#lists.size(tempCourse.students)}"/>
+            <td style="width: 450px; word-wrap: break-word; display: inline-block;"  sec:authorize="hasRole('ADMIN')">
                 <a th:href="@{/course/deleteCourse(courseId=${tempCourse.id})}"
                    class="btn btn-danger btn-sm"
                    onclick="if (!(confirm('Are you sure you want to delete?'))) return false">Delete the course</a>
                 <a th:href="@{/course/showFormForUpdate(courseId=${tempCourse.id})}" class="btn btn-warning btn-sm">Update the course</a>
 
-<!--                "@{'/course/addUserToCourse/' + ${tempCourse.id}(courseId=${tempCourse.id})}"   class="btn btn-warning btn-sm">Add user to the course</a>-->
+                <!--                "@{'/course/addUserToCourse/' + ${tempCourse.id}(courseId=${tempCourse.id})}"   class="btn btn-warning btn-sm">Add user to the course</a>-->
 
-<!--                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:attr="data-target='#addModal'">Add user to the course</button>-->
+                <!--                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:attr="data-target='#addModal'">Add user to the course</button>-->
 
 
 

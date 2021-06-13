@@ -17,11 +17,11 @@
 
         <input type="hidden" th:field="*{id}"/>
 
-        <input type="text" th:field="*{name}"
+        <input maxlength="50"  type="text" th:field="*{name}"
                class="form-control mb-4 col-4" placeholder="Course name">
 
-        <textarea  maxlength="50"  rows="3" type="text" th:field="*{description}"
-               class="form-control mb-4 col-4" placeholder="Description"/>
+        <textarea  maxlength="200"  rows="3" type="text" th:field="*{description}"
+                   class="form-control mb-4 col-4" placeholder="Description"/>
 
         <div class='input-group date col-xs-4' id='datetimepicker1'>
             <input th:field="*{date}" id="dateInput" type='text' class="form-control" placeholder="Start date" required />
@@ -42,7 +42,7 @@
             </div>
         </th:block>
 
-<br>
+        <br>
 
         <button type="submit" class="btn btn-info col-2">Save</button>
 
