@@ -82,6 +82,9 @@
                             <a sec:authorize="isAuthenticated()" href="#" th:href="@{/authors}" class="nav-link">Authors</a>
                         </li>
                         <li>
+                            <a sec:authorize="isAuthenticated()" href="#" th:href="@{/contact}" class="nav-link">Contact</a>
+                        </li>
+                        <li>
                         <a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-link">Logout</a>
                         </li>
                     </ul>
